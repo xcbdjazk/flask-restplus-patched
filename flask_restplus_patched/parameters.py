@@ -52,7 +52,7 @@ class PostFormParameters(Parameters):
 class PostJSONParameters(Parameters):
 
     def __init__(self, *args, **kwargs):
-        super(PostFormParameters, self).__init__(*args, **kwargs)
+        super(PostJSONParameters, self).__init__(*args, **kwargs)
         for field in itervalues(self.fields):
             if field.dump_only:
                 continue
