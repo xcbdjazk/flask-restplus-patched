@@ -1,5 +1,6 @@
 from apispec.ext.marshmallow.swagger import fields2jsonschema, field2property
 import flask_marshmallow
+import marshmallow_mongoengine
 from werkzeug import cached_property
 
 from flask_restplus.model import Model as OriginalModel
@@ -20,6 +21,11 @@ class Schema(SchemaMixin, flask_marshmallow.Schema):
 if flask_marshmallow.has_sqla:
     class ModelSchema(SchemaMixin, flask_marshmallow.sqla.ModelSchema):
         pass
+
+
+class DocumentSchema(SchemaMixin, marshmallow_mongoengine.ModelSchema,
+                     flask_marshmallow.Schema):
+    pass
 
 
 class DefaultHTTPErrorSchema(Schema):
