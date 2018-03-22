@@ -26,7 +26,7 @@ setuptools.setup(
 
     install_requires=[
         'Flask', 'flask-restplus', 'marshmallow', 'flask-marshmallow',
-        'marshmallow-mongoengine', 'webargs', 'apispec'],
+        'marshmallow-mongoengine', 'webargs', 'apispec','enum34'],
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
