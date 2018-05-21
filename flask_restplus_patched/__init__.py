@@ -1,4 +1,4 @@
-__version__ = '0.1.3.20180322'
+__version__ = '0.1.4.20180521'
 
 from flask_restplus import *
 from .api import Api
@@ -7,3 +7,8 @@ from .namespace import Namespace
 from .parameters import Parameters, PostFormParameters, PostJSONParameters, PatchJSONParameters
 from .swagger import Swagger
 from .resource import Resource
+
+try:
+    from .model import ModelSchema
+except ImportError:
+    pass
