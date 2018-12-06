@@ -24,6 +24,15 @@ class Api(OriginalApi):
         self.add_namespace(_namespace)
         return _namespace
 
+    @property
+    def specs_url(self):
+        '''
+        The Swagger specifications absolute url (ie. `swagger.json`)
+
+        :rtype: str
+        '''
+        result = url_for(self.endpoint('specs'), _external=True)
+        return result
 
 # Return validation errors as JSON
 def handle_validation_error(err):
