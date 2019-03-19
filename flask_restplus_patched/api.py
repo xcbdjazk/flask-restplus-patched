@@ -1,6 +1,5 @@
 from flask import jsonify
-from flask import jsonify, url_for
-from flask import request
+from flask import url_for
 from flask_restplus import Api as OriginalApi
 from werkzeug import cached_property
 
@@ -34,7 +33,7 @@ class Api(OriginalApi):
         :rtype: str
         '''
         result = url_for(self.endpoint('specs'), _external=True)
-        return request.scheme + result[result.index(':'):]
+        return result[result.index(':')+1:]
 
 # Return validation errors as JSON
 def handle_validation_error(err):
