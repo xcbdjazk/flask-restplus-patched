@@ -34,7 +34,7 @@ class Api(OriginalApi):
         :rtype: str
         '''
         result = url_for(self.endpoint('specs'), _external=True)
-        return request.scheme + result[5:]
+        return request.scheme + result[result.index(':'):]
 
 # Return validation errors as JSON
 def handle_validation_error(err):
