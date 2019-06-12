@@ -13,10 +13,24 @@ class Api(OriginalApi):
 
     @cached_property
     def __schema__(self):
-        # The only purpose of this method is to pass custom Swagger class
-        return Swagger(self).as_dict()
+        '''
+        The Swagger specifications/schema for this API
+
+        :returns dict: the schema as a serializable dict
+        '''
+        if not self._schema:
+            try:
+                self._schema = Swagger(self).as_dict()
+            except Exception:
+                # Log the source exception for debugging purpose
+                # and return an error message
+                msg = 'Unable to render schema'
+                current_app.logger.exception(msg)  # This will provide a full traceback
+                return {'error': msg}
+        return self._schema
 
     def init_app(self, app, **kwargs):
+        self.app = app
         super(Api, self).init_app(app, **kwargs)
         app.errorhandler(HTTPStatus.UNPROCESSABLE_ENTITY.value)(handle_validation_error)
 

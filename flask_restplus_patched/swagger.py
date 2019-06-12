@@ -1,4 +1,10 @@
-from apispec.ext.marshmallow.swagger import schema2parameters
+try:
+    from apispec.ext.marshmallow.openapi import OpenAPIConverter
+    openapi = OpenAPIConverter(openapi_version='2.0')
+    schema2parameters = openapi.schema2parameters
+except ImportError:
+    from apispec.ext.marshmallow.swagger import schema2parameters
+
 from flask_restplus.swagger import Swagger as OriginalSwagger
 
 
@@ -18,4 +24,5 @@ class Swagger(OriginalSwagger):
             default_location = 'body'
         else:
             default_location = 'query'
+
         return schema2parameters(schema, default_in=default_location, required=True)

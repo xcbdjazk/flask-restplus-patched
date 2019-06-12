@@ -1,4 +1,10 @@
-from apispec.ext.marshmallow.swagger import fields2jsonschema, field2property
+try:
+    from apispec.ext.marshmallow.openapi import OpenAPIConverter
+    openapi = OpenAPIConverter(openapi_version='2.0')
+    fields2jsonschema = openapi.fields2jsonschema
+    field2property = openapi.field2property
+except ImportError:
+    from apispec.ext.marshmallow.swagger import fields2jsonschema, field2property
 import flask_marshmallow
 import marshmallow_mongoengine
 from werkzeug import cached_property
@@ -15,17 +21,20 @@ class SchemaMixin(object):
 
 
 class Schema(SchemaMixin, flask_marshmallow.Schema):
-    pass
+    def __init__(self, **kwargs):
+        super(Schema, self).__init__(strict=True, **kwargs)
 
 
 if flask_marshmallow.has_sqla:
     class ModelSchema(SchemaMixin, flask_marshmallow.sqla.ModelSchema):
-        pass
+        def __init__(self, **kwargs):
+            super(ModelSchema, self).__init__(strict=True, **kwargs)
 
 
 class DocumentSchema(SchemaMixin, marshmallow_mongoengine.ModelSchema,
                      flask_marshmallow.Schema):
-    pass
+    def __init__(self, **kwargs):
+        super(DocumentSchema, self).__init__(strict=True, **kwargs)
 
 
 class DefaultHTTPErrorSchema(Schema):
