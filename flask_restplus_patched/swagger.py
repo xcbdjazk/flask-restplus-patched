@@ -1,6 +1,6 @@
 try:
     from apispec.ext.marshmallow.openapi import OpenAPIConverter
-    openapi = OpenAPIConverter(openapi_version='2.0')
+    openapi = OpenAPIConverter(openapi_version='2.0', None, None)
     schema2parameters = openapi.schema2parameters
 except ImportError:
     from apispec.ext.marshmallow.swagger import schema2parameters
