@@ -1,6 +1,6 @@
 try:
     from apispec.ext.marshmallow.openapi import OpenAPIConverter
-    openapi = OpenAPIConverter(openapi_version='2.0', None, None)
+    openapi = OpenAPIConverter(openapi_version='2.0', schema_name_resolver=None, spec=None)
     fields2jsonschema = openapi.fields2jsonschema
     field2property = openapi.field2property
 except ImportError:
