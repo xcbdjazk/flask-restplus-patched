@@ -1,6 +1,7 @@
 from flask import jsonify
 from flask import url_for
 from flask import request
+from flask import current_app
 from flask_restplus import Api as OriginalApi
 from werkzeug import cached_property
 
