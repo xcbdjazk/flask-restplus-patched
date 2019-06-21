@@ -53,8 +53,9 @@ class Api(OriginalApi):
 
 # Return validation errors as JSON
 def handle_validation_error(err):
-    exc = err.data['exc'] if hasattr(err, data) else err['exc']
+    exc = err.data['exc'] if 'exc' in err.data else err['exc']
     return jsonify({
         'status': HTTPStatus.UNPROCESSABLE_ENTITY.value,
-        'message': exc.messages
+        'message': exc.messages,
+        'category': 'danger'
     }), HTTPStatus.UNPROCESSABLE_ENTITY.value
