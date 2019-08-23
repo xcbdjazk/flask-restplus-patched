@@ -28,13 +28,17 @@ class Schema(SchemaMixin, flask_marshmallow.Schema):
 if flask_marshmallow.has_sqla:
     class ModelSchema(SchemaMixin, flask_marshmallow.sqla.ModelSchema):
         def __init__(self, **kwargs):
-            super(ModelSchema, self).__init__(strict=True, **kwargs)
+            if 'strict' not in kwargs:
+                kwargs['strict'] = True
+            super(ModelSchema, self).__init__(**kwargs)
 
 
 class DocumentSchema(SchemaMixin, marshmallow_mongoengine.ModelSchema,
                      flask_marshmallow.Schema):
     def __init__(self, **kwargs):
-        super(DocumentSchema, self).__init__(strict=True, **kwargs)
+        if 'strict' not in kwargs:
+            kwargs['strict'] = True
+        super(DocumentSchema, self).__init__(**kwargs)
 
 
 class DefaultHTTPErrorSchema(Schema):
