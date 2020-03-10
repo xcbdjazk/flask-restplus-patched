@@ -40,7 +40,7 @@ class Parameters(Schema):
 class QueryParameters(Parameters):
 
     def __init__(self, *args, **kwargs):
-        super(PostFormParameters, self).__init__(*args, **kwargs)
+        super(QueryParameters, self).__init__(*args, **kwargs)
         for field in itervalues(self.fields):
             if field.dump_only:
                 continue

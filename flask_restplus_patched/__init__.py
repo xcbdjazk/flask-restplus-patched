@@ -1,5 +1,5 @@
 
-__version__ = '0.1.10.2020031012'
+__version__ = '0.1.10.2020031013'
 
 from flask_restplus import *
 from .api import Api
