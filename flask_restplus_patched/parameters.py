@@ -23,6 +23,12 @@ class Parameters(Schema):
         # https://github.com/marshmallow-code/marshmallow/issues/344
         for required_field_name in getattr(self.Meta, 'required', []):
             self.fields[required_field_name].required = True
+        
+        for field in itervalues(self.fields):
+            if field.dump_only:
+                continue
+            if not field.metadata.get('location'):
+                field.metadata['location'] = 'query'
 
     def __contains__(self, field):
         return field in self.fields
